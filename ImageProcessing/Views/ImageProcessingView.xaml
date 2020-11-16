@@ -9,6 +9,35 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label Content="HELLLO"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <ContentPresenter Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" 
+                      Content="{Binding ElementName=imageListView, Path=SelectedItem}" VerticalAlignment="Top">
+            <ContentPresenter.ContentTemplate>
+                <DataTemplate>
+                    <Image Stretch="Uniform"  Source="{Binding ImageData}"/>
+                </DataTemplate>
+            </ContentPresenter.ContentTemplate>
+        </ContentPresenter>
+        
+        <ListView Name="imageListView" Grid.Column="1" Grid.Row="0" BorderThickness="0" SelectedIndex="0" ItemsSource="{Binding ImgList}" SelectedItem="{Binding SelectedImage}">
+            <ListView.InputBindings>
+                <KeyBinding Gesture="Delete"  Command="{Binding DeleteCommand}" />
+            </ListView.InputBindings>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Label x:Name="srcImgLabel" Content="{Binding Title}"/>
+                        <Image x:Name="srcImg" Stretch="Fill" Width="100" Source="{Binding ImageData}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>

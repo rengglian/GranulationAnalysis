@@ -9,7 +9,7 @@ namespace ImageProcessing.Views
     /// </summary>
     /// 
     [DependentView(typeof(OpenControlView), RegionNames.ContentRegionTop)]
-    public partial class ImageProcessingView : UserControl
+    public partial class ImageProcessingView : UserControl, ISupportDataContext
     {
         public ImageProcessingView()
         {
