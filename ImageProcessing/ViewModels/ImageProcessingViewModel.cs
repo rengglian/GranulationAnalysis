@@ -26,12 +26,21 @@ namespace ImageProcessing.ViewModels
             set { this.selectedImage = value; }
         }
 
+        private ImageList selectedImageA { get; set; }
+        public ImageList SelectedImageA
+        {
+            get { return this.selectedImageA; }
+            set { this.selectedImageA = value; }
+        }
+
         public DelegateCommand<string> OpenImageCommand { get; set; }
+        public DelegateCommand<string> SharpenImageCommand { get; private set; }
         public DelegateCommand DeleteCommand { get; private set; }
 
         public ImageProcessingViewModel()
         {
             OpenImageCommand = new DelegateCommand<string>(OpenImageHandler);
+            SharpenImageCommand = new DelegateCommand<string>(SharpenImageHandler);
             DeleteCommand = new DelegateCommand(DeleteHandler);
 
             ImgList = new ObservableCollection<ImageList>();
@@ -48,7 +57,20 @@ namespace ImageProcessing.ViewModels
             {
                 images[src] = new SpecimenImage();
             }
-            ImgList.Add(new ImageList(src, this.images[src].GetBitmapImage()));
+            ImgList.Add(new ImageList(src, images[src].GetBitmapImage()));
+        }
+        private void SharpenImageHandler(string src)
+        {
+            if (!images.ContainsKey(src))
+            {
+                images.Add(src, new SpecimenImage(images[SelectedImageA.Title].ImageMat));
+            }
+            else
+            {
+                images[src] = new SpecimenImage(images[SelectedImageA.Title].ImageMat);
+            }
+            images[src].Sharpen();
+            ImgList.Add(new ImageList(src, images[src].GetBitmapImage()));
         }
         private void DeleteHandler()
         {
