@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Prism.Commands;
+using Prism.Mvvm;
+using System;
 
 namespace ImageProcessing.ViewModels
 {
-    public class ImageProcessingViewModel
+    public class ImageProcessingViewModel : BindableBase
     {
+        public DelegateCommand<string> OpenImageCommand { get; set; }
+
+        public ImageProcessingViewModel()
+        {
+            OpenImageCommand = new DelegateCommand<string>(OpenImageHandler);
+        }
+
+        private void OpenImageHandler(string obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

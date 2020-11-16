@@ -24,7 +24,7 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" prism:RegionManager.RegionName="ContentRegionTop" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal"/>
         <GroupBox Grid.Row="2" Grid.Column="1" Header="Modules">
             <StackPanel>
-                <Button Height="25" Margin="5" Command="{Binding NavigateCommand}" CommandParameter="GrainAnalysisView" Content="Grain Analysis" />
+                <Button Height="25" Margin="5" Command="{Binding NavigateCommand}" CommandParameter="ImageProcessingView" Content="Image Processing" />
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Row="2" Grid.Column="2" Header="{Binding Title}">

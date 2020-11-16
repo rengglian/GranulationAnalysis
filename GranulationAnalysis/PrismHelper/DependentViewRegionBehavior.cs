@@ -64,7 +64,7 @@ namespace GranulationAnalysis.PrismHelper
             }
         }
 
-        private DependentViewInfo CreateDependentViewInfo(DependentViewAttribute attribute)
+        private static DependentViewInfo CreateDependentViewInfo(DependentViewAttribute attribute)
         {
             var info = new DependentViewInfo
             {
@@ -77,7 +77,7 @@ namespace GranulationAnalysis.PrismHelper
             return info;
         }
 
-        private bool ShouldKeepAlive(object view)
+        private static bool ShouldKeepAlive(object view)
         {
             IRegionMemberLifetime lifetime = GetItemOrContextLifetime(view);
             if (lifetime != null)
