@@ -14,8 +14,8 @@ namespace ImageProcessing.IO
 
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                DefaultExt = ".png",
-                Filter = "PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg"
+                DefaultExt = ".jpg",
+                Filter = "JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png"
             };
 
             Nullable<bool> result = openFileDialog.ShowDialog();

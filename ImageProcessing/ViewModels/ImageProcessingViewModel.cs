@@ -10,71 +10,56 @@ namespace ImageProcessing.ViewModels
 {
     public class ImageProcessingViewModel : BindableBase
     {
-        private readonly Dictionary<string, SpecimenImage> images;
-
-        private ObservableCollection<ImageList> imgList;
-        public ObservableCollection<ImageList> ImgList
+        private ObservableCollection<SampleImage> imgList;
+        public ObservableCollection<SampleImage> ImgList
         {
             get { return imgList; }
             set { SetProperty(ref imgList, value); }
         }
 
-        private ImageList selectedImage { get; set; }
-        public ImageList SelectedImage
+        private SampleImage selectedImage;
+        public SampleImage SelectedImage
         {
-            get { return this.selectedImage; }
-            set { this.selectedImage = value; }
+            get { return selectedImage; }
+            set { SetProperty(ref selectedImage, value); }
         }
 
-        private ImageList selectedImageA { get; set; }
-        public ImageList SelectedImageA
+        private SampleImage selectedImageA;
+        public SampleImage SelectedImageA
         {
-            get { return this.selectedImageA; }
-            set { this.selectedImageA = value; }
+            get { return selectedImageA; }
+            set { SetProperty(ref selectedImageA, value); }
         }
 
         public DelegateCommand<string> OpenImageCommand { get; set; }
         public DelegateCommand<string> SharpenImageCommand { get; private set; }
-        public DelegateCommand DeleteCommand { get; private set; }
+        public DelegateCommand<int?> DeleteCommand { get; set; }
 
         public ImageProcessingViewModel()
         {
             OpenImageCommand = new DelegateCommand<string>(OpenImageHandler);
             SharpenImageCommand = new DelegateCommand<string>(SharpenImageHandler);
-            DeleteCommand = new DelegateCommand(DeleteHandler);
+            DeleteCommand = new DelegateCommand<int?>(DeleteHandler);
 
-            ImgList = new ObservableCollection<ImageList>();
-            images = new Dictionary<string, SpecimenImage>();
+            ImgList = new ObservableCollection<SampleImage>();
         }
 
         private void OpenImageHandler(string src)
         {
-            if (!images.ContainsKey(src))
-            {
-                images.Add(src, new SpecimenImage());
-            }
-            else
-            {
-                images[src] = new SpecimenImage();
-            }
-            ImgList.Add(new ImageList(src, images[src].GetBitmapImage()));
+            ImgList.Add(new SampleImage());
         }
         private void SharpenImageHandler(string src)
         {
-            if (!images.ContainsKey(src))
-            {
-                images.Add(src, new SpecimenImage(images[SelectedImageA.Title].ImageMat));
-            }
-            else
-            {
-                images[src] = new SpecimenImage(images[SelectedImageA.Title].ImageMat);
-            }
-            images[src].Sharpen();
-            ImgList.Add(new ImageList(src, images[src].GetBitmapImage()));
+            var test = (SampleImage)SelectedImageA.Clone();
+            test.Description = "Sharpened";
+            ImgList.Add(test);
         }
-        private void DeleteHandler()
+        private void DeleteHandler(int? item)
         {
-
+            if (item >= 0)
+            {
+                ImgList.RemoveAt((int)item);
+            }
         }
     }
 }
