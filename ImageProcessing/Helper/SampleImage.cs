@@ -49,6 +49,11 @@ namespace ImageProcessing.Helper
             return false;
         }
 
+        public void Update()
+        {
+            ImageData = ImageTypeConverter.Convert(ImageMat.ToBitmap());
+        }
+
         public object Clone()
         {
             return MemberwiseClone();
